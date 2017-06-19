@@ -1,0 +1,27 @@
+The abstract factory pattern is used as an Interface for creating familiar Objects.
+A abstract actory encapsulates individual factories, which have a common construction. The concrete classes are not known!
+
+Basically, the "user" doesn't know which concrete Objects it gets from the abstract factory (actually from the internal factories),
+and it does not really care at all - it uses the interface of the factory to create the correct objects and use them.
+
+This type of design pattern is one of the best ways to create an object (and similiar/familiar ones). It separates the details of implementation
+of multiple objects from their general usage. It is very easy to create Objects without having to consider their implementation!
+It's very useful, since we can change the concrete implementation without changing the code that uses them - even at runtime!
+
+Though, this pattern can make our code more complex and is more time-consuming to develop.
+But this belongs to any design pattern IMO.
+
+
+
+
+Another example would be a juice extractor:
+
+We have an interface "Juice", with a method "drink()",
+the interface "JuiceFactory" with a method "squeezeFruit()", which returns a object of interface Juice.
+then we have 3 different (concrete) fuiceFactories, each implementing the squeezeFruit method:
+OrangeJuiceFactory, returning an orange juice
+LimeJuiceFactory, returning an lime juice
+AppleJuiceFactory, returning an apple juice
+Last but not least, the orange/lime/apple juice class are concrete classes implementing the juice interface, meaning we have to implement the drink-method.
+
+This probably is not a very useful example, but who knows.

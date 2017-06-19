@@ -1,0 +1,16 @@
+The composition design pattern is used to represent a (1-to-many) Tree-Hierarchy of objects. It allows us to use individual and
+compound (hence composition) objects unified.
+
+The big advantage is the unified and simplified access:
+If a call is made to the leaf (an individual object of the component) the request is directly handled
+If the call is made to the composite, it forwards the request to its child-components
+
+The disadvantage is that, since the composite is unified, we can't limit it to specific types - we make the
+typesystem of our language useless - meaning, we have to check types in the runtime.
+
+
+
+A very common example for this is a arithmetic expression:
+
+Each arithmetic expression consists of two operands and an operator.
+The operand itself can be a number, or another arithmetic expression.
