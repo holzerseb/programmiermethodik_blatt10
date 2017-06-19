@@ -1,19 +1,70 @@
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
-public class Game {
-
+public class Game implements ISubject
+{
 	private Player p1;
 	private Player p2;
 	private int winsRequired;
 	public static Scanner scanner = new Scanner(System.in);
+	private List<AbstractObserver> observers = new ArrayList<>();
 	
 	public Game(){
 		this.p1 = getNewPlayer(1);
 		this.p2 = getNewPlayer(2);
 		this.winsRequired = 3;
+
+		//If a statistics-Observer is created, it automatically registers itself
+		//to the game it is created in.
+		new StatisticObserver(this);
 	}
-	
+
+	/* HERE IS MYYY COODEE  (also above) */
+	private int draws = 0;
+
+	@Override
+	public void register(AbstractObserver observer)
+	{
+		if(!observers.contains(observer))
+			observers.add(observer);
+	}
+
+	@Override
+	public void unregister(AbstractObserver observer)
+	{
+		if(observers.contains(observer))
+			observers.remove(observer);
+
+		observer.remove();
+	}
+
+	@Override
+	public void notifyObservers()
+	{
+		for(AbstractObserver observer : observers)
+			observer.update();
+	}
+
+	public Player getPlayer(int playerNumber)
+	{
+		if(playerNumber == 1)
+			return p1;
+		else if (playerNumber == 2)
+			return p2;
+		else
+			return null;
+	}
+
+	public int getDraws()
+	{
+		return draws;
+	}
+
+	/* HERE ENDS MYYY COODEE  (also above) */
+
+
 	private int getPlayerType(int number){
 		int choice = -1;
 		while (choice < 1 || choice > 2) {
@@ -39,10 +90,10 @@ public class Game {
 
 	private boolean isGameFinished(){
 		if (p1.getWins() == this.winsRequired){
-			System.out.println("Player 1 wins game!");
+			System.out.println("Player 1 wins the game!");
 			return true;
 		} else if (p2.getWins() == this.winsRequired){
-			System.out.println("Player 2 wins game!");
+			System.out.println("Player 2 wins the game!");
 			return true;
 		}
 		return false;
@@ -60,12 +111,16 @@ public class Game {
 				p2.addWin();
 				System.out.println("Player 2 wins round!");
 			} else {
+				draws++;
 				System.out.println("Draw!");
 			}
 			System.out.println("-----");
+			System.out.println();
+			notifyObservers();
+			System.out.println();
 		}
 	}
-	
+
 	public static void main(String args[]) {
 		new Game().run();
 	}

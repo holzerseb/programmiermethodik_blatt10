@@ -1,0 +1,17 @@
+The observer-pattern is used to inform observers about any changes of an object.
+We also call this "event-driven" software, like .Net does use it heavily.
+
+
+The big advantage is, that we don't need any relation between an object and it's observer - they can exist
+without each other. Also, observers can be added and removed at any time.
+Furthermore, multiple observers can get informed at the same time.
+
+On the other hand, we can get inconsistent data - the state can change during an update.
+Also, an observer gets the information, even if he doesn't want to.
+Additionally, the update doesn't provide any information -what- has changed.
+
+
+Another example would be any kind of measured values, which are represented in different diagrams live:
+
+Because the measured values can continuously change, the diagrams (balken-diagramm, kreis-diagram, whatever) have
+to do so as well - if each diagram has an observer on the measured values, they can change any time.
